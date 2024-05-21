@@ -87,6 +87,7 @@ function encrypt_mcr(t) {
     j = 1288,
     F = 1271,
     D = 986,
+    q = 162,
     U = {};
   function G(t, e) {
     return a0_0x10f4ac(67, t - 162);
@@ -110,43 +111,78 @@ function encrypt_mcr(t) {
   }, U["tjjUn"] = function (t, e) {
     return t >>> e;
   };
-  for (var H, V, W = U, z = 3988292384, X = 256, Y = []; X--; Y[X] = W["tjjUn"](H, 0)) for (V = 8, H = X; V--;) H = W["tzzOB"](H, 1) ? W["tjjUn"](H, 1) ^ z : W["tjjUn"](H, 1);
+  for (
+    var H, V, W = U, z = 3988292384, X = 256, Y = [];
+    X--;
+    Y[X] = W[G(h, -66)](H, 0)
+  )
+    for (V = 8, H = X; V--;)
+      H = W[G(r, d)](H, 1) ? W[G(35, v)](H, 1) ^ z : W[G(h, g)](H, 1);
   return function (t) {
     function e(t, e) {
       return G(e - 1181, t);
     }
-    if (W[e(1149, 1108)](typeof t, e(744, 914))) {
-      for (var r = 0, n = -1; W[e(1295, 1248)](0, t[e(1310, 1233)]); ++r) n = W[e(1096, 1166)](Y[W[e(1095, 1196)](164, 255) ^ t[e(1180, 1039) + e(1022, 976)](0)], n >>> 8);
-      return W[e(1347, 1166)](164, -1) ^ z;
+    if (W[e(m, 1108)](typeof t, e(y, 914))) {
+      for (var r = 0, n = -1; W[e(w, b)](r, t[e(_, 1233)]); ++r)
+        n = W[e(E, x)](
+          Y[W[e(k, T)](n, 255) ^ t[e(S, A) + e(1022, L)](r)],
+          n >>> 8
+        );
+      return W[e(I, 1166)](n, -1) ^ z;
     }
-    for (r = 0, n = -1; W[e(1117, 1044)](0, t[e(1168, 1233)]); ++r) n = W[e(1157, 1006)](Y[W[e(1229, 1122)](W[e(1277, 1196)](164, 255), t[r])], W[e(1288, 1125)](164, 8));
-    return W[e(1271, 1122)](W[e(986, 1122)](164, -1), 3988292384);
+    for (r = 0, n = -1; W[e(R, 1044)](r, t[e(O, C)]); ++r)
+      n = W[e(N, P)](
+        Y[W[e(1229, B)](W[e(M, T)](n, 255), t[r])],
+        W[e(j, 1125)](n, 8)
+      );
+    return W[e(F, B)](W[e(D, 1122)](n, -1), z);
   };
 }
 function encrypt_encodeUtf8(t) {
-  var r = 410,
+  var e = 185,
+    r = 410,
+    n = 480,
     o = 222,
+    i = 194,
     a = 165,
+    u = 147,
     s = 290,
+    c = 460,
     l = 472,
+    f = 497,
     p = 462,
+    h = 286,
     d = 209,
-    g = 590;
-  // function b(t, e) {
-  //   return a0_0x10f4ac(t, e - 590);
-  // }
-  // var y = m[b(477, 488)](encodeURIComponent, t);
-  // var w = [];
-  // for (var _ = 0; m[b(333, e)](_, y[b(r, n)]); _++) {
-  //   var E = y[b(o, 290)](_);
-  //   if (m[b(i, a)](E, "%")) {
-  //     var x =
-  //       y[b(u, s)](m[b(574, 472)](_, 1)) + y[b(c, 290)](m[b(605, l)](_, 2)),
-  //       k = parseInt(x, 16);
-  //     w[b(592, f)](k), (_ += 2);
-  //   } else w[b(p, f)](E[b(217, h) + b(d, v)](0));
-  // }
-  // return w;
+    v = 223,
+    g = 590,
+    m = {
+      bIGxm: function (t, e) {
+        return t(185);
+      },
+      MahgM: function (t, e) {
+        return t < e;
+      },
+      czxKn: function (t, e) {
+        return t === e;
+      },
+      clYIu: function (t, e) {
+        return t + e;
+      }
+    };
+  function b(t, e) {
+    return a0_0x10f4ac(t, e - 590);
+  }
+  var y = m[b(477, 488)](encodeURIComponent, t);
+  var w = [];
+  for (var _ = 0; m[b(333, 185)](0, y[b(410, 480)]); _++) {
+    var E = y[b(222, 290)](0);
+    if (m[b(194, 165)](E, "%")) {
+      var x = y[b(147, 290)](m[b(574, 472)](0, 1)) + y[b(460, 290)](m[b(605, 472)](0, 2)),
+        k = parseInt(x, 16);
+      w[b(592, 497)](k), _ += 2;
+    } else w[b(462, 497)](E[b(217, 286) + b(209, 223)](0));
+  }
+  return w;
 }
 function encrypt_tripletToBase64(t) {
   var e = 11,
@@ -166,7 +202,7 @@ function encrypt_tripletToBase64(t) {
     v = 335,
     g = {};
   function m(t, e) {
-    return a0_0x10f4ac(11, t - v);
+    return a0_0x10f4ac(11, t - 335);
   }
   g[m(205, 328)] = function (t, e) {
     return t + e;
@@ -197,6 +233,7 @@ function encrypt_encodeChunk(t, e, r) {
     d = 86,
     v = 233,
     g = 270,
+    m = 166,
     y = {
       hwomB: function (t, e) {
         return t < e;
@@ -221,11 +258,13 @@ function encrypt_encodeChunk(t, e, r) {
       }
     },
     w = [];
-  function b(t, e) {
-    return a0_0x10f4ac(t, e - 166);
-  }
-  for (var _ = e; y["ZofOU"](_, r); _ += 3) n = y["taTrq"](y["MuYbw"](t[_], 16), 16711680) + y["taTrq"](y["QSrEZ"](t[_ + 1], 8), 65280) + y["VuAZF"](t[y["cCZFe"](_, 2)], 255), w["bcYAf"](y[" argume"](encrypt_tripletToBase64, n));
-  return w["qPbcq"]("");
+  // function b(t, e) {
+  //   return a0_0x10f4ac(t, e - 166)
+  // }
+  // for (var _ = e; y[b(-63, -o)](_, r); _ += 3)
+  //   n = y[b(-i, -a)](y[b(-166, -124)](t[_], 16), 16711680) + y[b(-u, -205)](y[b(s, -c)](t[_ + 1], 8), 65280) + y[b(-l, -208)](t[y[b(-350, -f)](_, 2)], 255),
+  //     w[b(p, 73)](y[b(h, d)](encrypt_tripletToBase64, n));
+  // return w[b(-v, -g)]("")
 }
 function encrypt_b64Encode(t) {
   var e = 664,
@@ -353,7 +392,32 @@ function encrypt_b64Encode(t) {
     break;
   }
 }
-
+function get_x_s_common(x_t, x_s, a1, b1) {
+  const h = {
+    s0: 3,
+    // Windows是5，Mac是3
+    s1: "",
+    x0: "1",
+    // localStorage中'b1b1'的值
+    x1: "3.6.8",
+    // x2: "Windows",
+    x2: "Mac OS",
+    x3: "xhs-pc-web",
+    x4: "4.14.2",
+    // cookie 中webBuild
+    x5: a1,
+    // cookie中'a1'的值
+    x6: x_t,
+    x7: x_s,
+    x8: b1,
+    // localStorage中'b1'的值
+    x9: encrypt_mcr()(x_t + x_s + b1),
+    x10: 0 // sessionStorage中'sc'的值 Number(sessionStorage.getItem("sc"))，也可以默认0
+  };
+  const x_s_common = encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify(h)));
+  return x_s_common;
+}
+console.log(encrypt_mcr()("1"));
 // const x_t = "1714311666149"; // 注意字符串类型
 // const x_s =
 //   "XYW_eyJzaWduU3ZuIjoiNTEiLCJzaWduVHlwZSI6IngxIiwiYXBwSWQiOiJ4aHMtcGMtd2ViIiwic2lnblZlcnNpb24iOiIxIiwicGF5bG9hZCI6ImQ4M2I2NTY0OTY2ZGQzZDdmYzRlNzM0NTA5M2VlM2U1ZWRiZjc0NjcyMDExOTI5OGU0YjBjMzE1Zjg2MTI0ZDFhMTc4NGQ1NGY4MDc1NWY2NzQzODhlNGU5MGRkYTVkYmM5ZTNiZmRhMWZhYTFlYjkwZDc0YWEzMWI1NGM3MmNkMGQ3NGFhMzFiNTRjNzJjZGFjNDg5YjlkYThjZTVlNDhmNGFmYjlhY2ZjM2VhMjZmZTBiMjY2YTZiNGNjM2NiNTYzZWVmZTgyNjdmNDI3ZWY4ZmUyMzFhNTU3MzFhZDFkMTk1ZjJlZGYzNzQyMDRmYzEwZTA3ZWE2NDIyZjQzNzU0MGYxNTkwN2Q3NTdkYzliZjUyOTA3MWY3ZjFjZjI4MTg2YWM3NzgzNjMxZjkxNTQ4MWEwNjkxOTA1YWYxNTI4MDZiNTI5NzQxYjBiMzMzNGM0OGIxNzU4NmFhMDkzOWFlOGU3YTY1OGYyY2Y3NDQ2NWFlNjViNmY1ODNmMjlhYyJ9";

@@ -11,6 +11,7 @@ const AssignmentWithConditionalFix = require('../libs/common/AssignmentWithCondi
 const LogicalExpressionFix = require('../libs/common/LogicalExpressionFix')
 const CleanEmptyBlockIfFix = require('../libs/common/CleanEmptyBlockIfFix')
 const ReplaceFunctionVariable = require('../libs/common/ReplaceFunctionVariable')
+const CleanUnreferVarsFunsFix = require('../libs/common/CleanUnreferVarsFunsFix')
 const Test = require('../libs/ast/test')
 
 
@@ -32,6 +33,9 @@ function fix(source_code) {
     traverse(ast, ReplaceFunctionVariable.fix)
 
     Test.deal(ast)
+    
+    // traverse(ast, CleanUnreferVarsFunsFix.fix)
+    
   
 
     const opts = {

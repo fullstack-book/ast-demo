@@ -11,7 +11,9 @@ function deal(ast) {
     ]
     let callFunctionNames = [
         "G",
-        "b"
+        // "b",
+        // "W",
+        // "m"
     ]
     const vistor = {
         FunctionDeclaration(path) {
@@ -61,30 +63,5 @@ function deal(ast) {
         }
     };
     traverse(ast, visitor2);
-
-    traverse(ast, {
-        enter(path) {
-            // 识别顶级未被引用的函数和变量声明
-            if (path.isProgram()) {
-                path.traverse({
-                    "FunctionDeclaration|VariableDeclaration"(path) {
-                        const name = path.node.id ? path.node.id.name : null;
-
-                        // 检查该声明是否被引用
-                        if (name && !path.scope.getBinding(name).referenced) {
-                            path.remove(); // 移除未被引用的声明
-                        } else if (path.isVariableDeclaration()) {
-                            // 对于变量声明，检查每个声明的变量是否被引用
-                            path.node.declarations.forEach((declaration, index) => {
-                                if (!path.scope.getBinding(declaration.id.name).referenced) {
-                                    path.get('declarations.' + index).remove();
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }
-    });
 }
 exports.deal = deal

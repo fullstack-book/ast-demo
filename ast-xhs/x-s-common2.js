@@ -373,7 +373,7 @@ function a0_0x1131() {
   })();
 }
 
-!function (t, e) {
+function init(t, e) {
   var r = 401
     , n = 506
     , o = 337
@@ -405,7 +405,8 @@ function a0_0x1131() {
     } catch (x) {
       _.push(_.shift())
     }
-}(a0_0x1131);
+};
+init(a0_0x1131);
 
 function a0_0x10f4ac(t, e) {
   return a0_0x3693(e - -570, t);
@@ -528,7 +529,7 @@ function encrypt_mcr (t) {
     q = 162,
     U = {};
   function G(t, e) {
-    return a0_0x10f4ac(e, t - q);
+    return a0_0x10f4ac(e, t - 162);
   }
   (U[G(-73, -66)] = function (t, e) {
     return t === e;
@@ -617,7 +618,7 @@ function encrypt_encodeUtf8(t) {
       },
     };
   function b(t, e) {
-    return a0_0x10f4ac(t, e - g);
+    return a0_0x10f4ac(t, e - 590);
   }
   var y = m[b(477, 488)](encodeURIComponent, t);
   var w = [];
@@ -884,6 +885,8 @@ function get_x_s_common(x_t, x_s, a1, b1) {
   const x_s_common = encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify(h)));
   return x_s_common;
 }
+
+console.log(encrypt_mcr()("1"))
 
 // const x_t = "1714311666149"; // 注意字符串类型
 // const x_s =

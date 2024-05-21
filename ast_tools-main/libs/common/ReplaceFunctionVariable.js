@@ -91,6 +91,8 @@ function replaceVariable(path) {
                             (typeof newValue === 'number' ? types.numericLiteral(newValue) :
                                 typeof newValue === 'boolean' ? types.booleanLiteral(newValue) :
                                     null);
+
+                                // 也可以使用types.valueToNode(值)来创建字面量节点
                         if (newNode) {
                             path.replaceWith(newNode);
                         }

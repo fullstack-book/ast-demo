@@ -485,7 +485,7 @@ var encrypt_lookup = [
   "5"
 ];
 
-var encrypt_mcr = (function (t) {
+function encrypt_mcr (t) {
   var e = 67,
     r = 15,
     n = 164,
@@ -583,7 +583,7 @@ var encrypt_mcr = (function (t) {
       );
     return W[e(F, B)](W[e(D, 1122)](n, -1), z);
   };
-})();
+}
 
 function encrypt_encodeUtf8(t) {
   var e = 185,
@@ -878,7 +878,7 @@ function get_x_s_common(x_t, x_s, a1, b1) {
     x6: x_t,
     x7: x_s,
     x8: b1, // localStorage中'b1'的值
-    x9: encrypt_mcr(x_t + x_s + b1),
+    x9: encrypt_mcr()(x_t + x_s + b1),
     x10: 0, // sessionStorage中'sc'的值 Number(sessionStorage.getItem("sc"))，也可以默认0
   };
   const x_s_common = encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify(h)));

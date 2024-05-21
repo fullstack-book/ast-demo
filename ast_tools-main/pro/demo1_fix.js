@@ -11,24 +11,28 @@ const AssignmentWithConditionalFix = require('../libs/common/AssignmentWithCondi
 const LogicalExpressionFix = require('../libs/common/LogicalExpressionFix')
 const CleanEmptyBlockIfFix = require('../libs/common/CleanEmptyBlockIfFix')
 const ReplaceFunctionVariable = require('../libs/common/ReplaceFunctionVariable')
+const Test = require('../libs/ast/test')
 
 
 function fix(source_code) {
-    const ast = parser.parse(source_code)
+    let ast = parser.parse(source_code)
     // 格式修复
-    traverse(ast, IfWithExpressFix.fix)
-    traverse(ast, ForWithExpressFix.fix)
-    traverse(ast, ReturnSeqFix.fix)
+    // traverse(ast, IfWithExpressFix.fix)
+    // traverse(ast, ForWithExpressFix.fix)
+    // traverse(ast, ReturnSeqFix.fix)
 
 
     // // 内容修复
-    traverse(ast, VariableDeclaratorFix.fix)
+    // traverse(ast, VariableDeclaratorFix.fix)
 
-    traverse(ast, AssignmentWithConditionalFix.fix)
+    // traverse(ast, AssignmentWithConditionalFix.fix)
 
-    traverse(ast, LogicalExpressionFix.fix)
-    traverse(ast, CleanEmptyBlockIfFix.fix)
+    // traverse(ast, LogicalExpressionFix.fix)
+    // traverse(ast, CleanEmptyBlockIfFix.fix)
     traverse(ast, ReplaceFunctionVariable.fix)
+
+    Test.deal(ast)
+  
 
     const opts = {
         indent: {

@@ -1,9 +1,11 @@
-function test(a, b) {
-    const k = 1;
-    const j = 2;
-    function add(x, y) {
-      return x + y;
-    }
-    const res = add(a + k, b + j);
-    return res;
-  }
+const a = 1;
+
+function yy() {
+  return "hello world"
+}
+
+function xx() {
+  const i = 2;
+  return 1;
+}
+xx();

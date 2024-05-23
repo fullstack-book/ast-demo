@@ -53,9 +53,11 @@ function replaceVariable(path) {
 
         // 再次遍历AST，寻找变量声明
         path.traverse({
-            VariableDeclarator(path) {
-                if ((types.isNumericLiteral(path.node.init) || types.isStringLiteral(path.node.init)) && path.node.id.name) {
-                    localVars.set(path.node.id.name, path.node.init.value);
+            VariableDeclarator(innerPath) {
+                if ((types.isNumericLiteral(innerPath.node.init) || types.isStringLiteral(innerPath.node.init)) && innerPath.node.id.name) {
+                    if(innerPath.scope.block === path.scope.block){
+                        localVars.set(innerPath.node.id.name, innerPath.node.init.value);
+                    }
                 }
             },
             UnaryExpression(path) {
@@ -102,19 +104,22 @@ function replaceVariable(path) {
         });
         // 再次遍历AST，这次寻找调用表达式
         path.traverse({
-            CallExpression(path) {
+            CallExpression(innerPath) {
                 // 遍历调用表达式的参数
-                path.node.arguments.forEach((arg, index) => {
-                    // 如果参数是一个标识符，并且存在于localVars中但不在functionParameters中
-                    if (types.isIdentifier(arg) && localVars.has(arg.name) && !functionParameters.has(arg.name)) {
-                        // 从localVars获取该变量的值
-                        const value = localVars.get(arg.name);
-                        // 根据值的类型创建一个新的字面量节点
-                        const newNode = typeof value === 'number' ? types.numericLiteral(value) : types.stringLiteral(value);
-                        // 将参数替换为新创建的字面量节点
-                        path.node.arguments[index] = newNode;
-                    }
-                });
+                // if (innerPath.scope.block === path.scope.block) {
+                    innerPath.node.arguments.forEach((arg, index) => {
+                        // 如果参数是一个标识符，并且存在于localVars中但不在functionParameters中
+                        if (types.isIdentifier(arg) && !functionParameters.has(arg.name) && localVars.has(arg.name) ) {
+                            // 从localVars获取该变量的值
+                            const value = localVars.get(arg.name);
+                            // 根据值的类型创建一个新的字面量节点
+                            const newNode = typeof value === 'number' ? types.numericLiteral(value) : types.stringLiteral(value);
+                            // 将参数替换为新创建的字面量节点
+                            innerPath.node.arguments[index] = newNode;
+                        }
+                    });
+                // }
+                
             }
         });
     }

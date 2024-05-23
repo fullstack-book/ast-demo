@@ -373,7 +373,7 @@ function a0_0x1131() {
   })();
 }
 
-function init(t, e) {
+!function (t, e) {
   var r = 401
     , n = 506
     , o = 337
@@ -405,8 +405,7 @@ function init(t, e) {
     } catch (x) {
       _.push(_.shift())
     }
-};
-init(a0_0x1131);
+}(a0_0x1131);
 
 function a0_0x10f4ac(t, e) {
   return a0_0x3693(e - -570, t);
@@ -652,7 +651,7 @@ function encrypt_tripletToBase64(t) {
     , v = 335
     , g = {};
   function m(t, e) {
-    return a0_0x10f4ac(e, t - v)
+    return a0_0x10f4ac(e, t - 335)
   }
   g[m(205, 328)] = function (t, e) {
     return t + e
@@ -703,7 +702,7 @@ function encrypt_encodeChunk(t, e, r) {
     }
   }, w = [];
   function b(t, e) {
-    return a0_0x10f4ac(t, e - m)
+    return a0_0x10f4ac(t, e - 166)
   }
   for (var _ = e; y[b(-63, -o)](_, r); _ += 3)
     n = y[b(-i, -a)](y[b(-166, -124)](t[_], 16), 16711680) + y[b(-u, -205)](y[b(s, -c)](t[_ + 1], 8), 65280) + y[b(-l, -208)](t[y[b(-350, -f)](_, 2)], 255),
@@ -806,7 +805,7 @@ function encrypt_b64Encode(t) {
       },
     };
   function W(t, e) {
-    return a0_0x10f4ac(e, t - -H);
+    return a0_0x10f4ac(e, t - -240);
   }
   for (var z = (W(-413, -442) + W(-e, -r) + "7")[W(-n, -o)]("|"), X = 0; ;) {
     switch (z[X++]) {
@@ -885,8 +884,6 @@ function get_x_s_common(x_t, x_s, a1, b1) {
   const x_s_common = encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify(h)));
   return x_s_common;
 }
-
-console.log(encrypt_mcr()("1"))
 
 // const x_t = "1714311666149"; // 注意字符串类型
 // const x_s =

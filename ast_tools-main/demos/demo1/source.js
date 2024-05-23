@@ -373,7 +373,7 @@ function a0_0x1131() {
   })();
 }
 
-function init(t, e) {
+!function (t, e) {
   var r = 401
     , n = 506
     , o = 337
@@ -405,8 +405,7 @@ function init(t, e) {
     } catch (x) {
       _.push(_.shift())
     }
-};
-init(a0_0x1131);
+}(a0_0x1131);
 
 function a0_0x10f4ac(t, e) {
   return a0_0x3693(e - -570, t);
@@ -486,7 +485,7 @@ var encrypt_lookup = [
   "5"
 ];
 
-function encrypt_mcr(t) {
+function encrypt_mcr (t) {
   var e = 67,
     r = 15,
     n = 164,
@@ -702,13 +701,13 @@ function encrypt_encodeChunk(t, e, r) {
       return t(e)
     }
   }, w = [];
-  // function b(t, e) {
-  //   return a0_0x10f4ac(t, e - 166)
-  // }
-  // for (var _ = e; y[b(-63, -o)](_, r); _ += 3)
-  //   n = y[b(-i, -a)](y[b(-166, -124)](t[_], 16), 16711680) + y[b(-u, -205)](y[b(s, -c)](t[_ + 1], 8), 65280) + y[b(-l, -208)](t[y[b(-350, -f)](_, 2)], 255),
-  //     w[b(p, 73)](y[b(h, d)](encrypt_tripletToBase64, n));
-  // return w[b(-v, -g)]("")
+  function b(t, e) {
+    return a0_0x10f4ac(t, e - 166)
+  }
+  for (var _ = e; y[b(-63, -o)](_, r); _ += 3)
+    n = y[b(-i, -a)](y[b(-166, -124)](t[_], 16), 16711680) + y[b(-u, -205)](y[b(s, -c)](t[_ + 1], 8), 65280) + y[b(-l, -208)](t[y[b(-350, -f)](_, 2)], 255),
+      w[b(p, 73)](y[b(h, d)](encrypt_tripletToBase64, n));
+  return w[b(-v, -g)]("")
 }
 
 function encrypt_b64Encode(t) {
@@ -885,7 +884,7 @@ function get_x_s_common(x_t, x_s, a1, b1) {
   const x_s_common = encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify(h)));
   return x_s_common;
 }
-console.log(encrypt_mcr()("1"))
+
 // const x_t = "1714311666149"; // 注意字符串类型
 // const x_s =
 //   "XYW_eyJzaWduU3ZuIjoiNTEiLCJzaWduVHlwZSI6IngxIiwiYXBwSWQiOiJ4aHMtcGMtd2ViIiwic2lnblZlcnNpb24iOiIxIiwicGF5bG9hZCI6ImQ4M2I2NTY0OTY2ZGQzZDdmYzRlNzM0NTA5M2VlM2U1ZWRiZjc0NjcyMDExOTI5OGU0YjBjMzE1Zjg2MTI0ZDFhMTc4NGQ1NGY4MDc1NWY2NzQzODhlNGU5MGRkYTVkYmM5ZTNiZmRhMWZhYTFlYjkwZDc0YWEzMWI1NGM3MmNkMGQ3NGFhMzFiNTRjNzJjZGFjNDg5YjlkYThjZTVlNDhmNGFmYjlhY2ZjM2VhMjZmZTBiMjY2YTZiNGNjM2NiNTYzZWVmZTgyNjdmNDI3ZWY4ZmUyMzFhNTU3MzFhZDFkMTk1ZjJlZGYzNzQyMDRmYzEwZTA3ZWE2NDIyZjQzNzU0MGYxNTkwN2Q3NTdkYzliZjUyOTA3MWY3ZjFjZjI4MTg2YWM3NzgzNjMxZjkxNTQ4MWEwNjkxOTA1YWYxNTI4MDZiNTI5NzQxYjBiMzMzNGM0OGIxNzU4NmFhMDkzOWFlOGU3YTY1OGYyY2Y3NDQ2NWFlNjViNmY1ODNmMjlhYyJ9";
@@ -894,3 +893,4 @@ console.log(encrypt_mcr()("1"))
 //   "I38rHdgsjopgIvesdVwgIC+oIELmBZ5e3VwXLgFTIxS3bqwErFeexd0ekncAzMFYnqthIhJeD9MDKutRI3KsYorWHPtGrbV0P9WfIi/eWc6eYqtyQApPI37ekmR1QL+5Ii6sdnoeSfqYHqwl2qt5B0DoIvMzOZQqZVw7IxOeTqwr4qtiIkrOIi/skccxICLdI3Oe0utl2ADZsLveDSKsSPw5IEvsiutJOqw8BVwfPpdeTDWOIx4VIiu6ZPwbPut5IvlaLbgs3qtxIxes1VwHIkumIkIyejgsY/WTge7sjutKrZgedWI9gfKeWIFGI36eWPwyIEJefut0ocVAPBLLI3Aeiqt3cZ7sVom4IESyIhEy4o4AI3Mn4F4gIiifpVwAICZVJo3sWWJs1qw3IvAednvej0TyIi5e6pLS8qwUIE7s1fds6WAeiVwqed5sdut3IxILbd6sdqtDbgKs0PwgIv8aI3z5rqwGBVtwzfTsKD7sdBdskut+Iioed/As1SiiIk/sjD7s3niAIkoe6Vt1IkikwPwwNVt9I3oe6utdIkJsTqwiIEKsfPtA+qwKsuw7IvHhIxugGnWDKWgexPtVIhiKIi6eDqwnrl42pa5sWUzkIkWo4VtPmqwCIv3e3qtfPLeeVY0sTbEyIEJekdgs3PtsnPwqI35sSPt0Ih/sV04TIk0ejjNsfqw7Iv3sVut04B8qIkWyIvKsxFOeknve0FAsYPtKIiMFI3MurVtKIvzjIh6s6lFut//sWqtaI3IozVwWPS/eW0NsfVtznPtzI3qUIiIH/VtqwuwtI30sdmveVuwscPw2IicNcuwdIC4Lp9SbIE0eSj7ejBAs3Vwc+qtLIiczIx6sYqtYIE/edrkfICD+/F8OIv+BIvAekPw5/qtaPqwuICbiIk5e39vskPt1mIRRIx+tOutPOVwHI3u=";
 // const x_s_common = get_x_s_common(x_t, x_s, a1, b1);
 // console.log(x_s_common);
+console.log(encrypt_b64Encode(encrypt_encodeUtf8(JSON.stringify({a:1}))));

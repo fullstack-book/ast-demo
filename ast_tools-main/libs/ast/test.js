@@ -1,14 +1,23 @@
 const types = require("@babel/types");
 const traverse = require("@babel/traverse").default;
+const parser = require("@babel/parser");
+const generate = require('@babel/generator').default;
 
 function deal(ast) {
     let functionString = ""
     const globalFunctionNames = [
-        "a0_0x1131",
-        "init",
-        "a0_0x10f4ac",
-        "a0_0x3693",
+        // "a0_0x1131",
+        // "init",
+        // "a0_0x10f4ac",
+        // "a0_0x3693",
     ]
+
+    const newAst = parser.parse("");
+    // 遍历
+    Array.from({ length: 4 }).forEach((_, index) => {
+        newAst.program.body.push(ast.program.body[index]);
+    })
+    const newAstCode = generate(newAst, { compact: true }).code;
     let callFunctionNames = [
         "G",
         // "b",
@@ -23,6 +32,7 @@ function deal(ast) {
         }
     }
     traverse(ast, vistor);
+    eval(newAstCode)
     eval(functionString)
 
 

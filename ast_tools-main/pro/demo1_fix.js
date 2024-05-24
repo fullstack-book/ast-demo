@@ -12,7 +12,7 @@ const LogicalExpressionFix = require('../libs/common/LogicalExpressionFix')
 const CleanEmptyBlockIfFix = require('../libs/common/CleanEmptyBlockIfFix')
 const ReplaceFunctionVariable = require('../libs/common/ReplaceFunctionVariable')
 const CleanUnreferVarsFunsFix = require('../libs/common/CleanUnreferVarsFunsFix')
-const Test = require('../libs/ast/test')
+const Test = require('../libs/ast/sanji')
 
 
 function fix(source_code) {
@@ -32,12 +32,9 @@ function fix(source_code) {
     // traverse(ast, CleanEmptyBlockIfFix.fix)
     traverse(ast, ReplaceFunctionVariable.fix)
 
-    Test.deal(ast)
-    
-    // traverse(ast, CleanUnreferVarsFunsFix.fix)
-    
-  
+    // Test.deal(ast)
 
+    // traverse(ast, CleanUnreferVarsFunsFix.fix)
     const opts = {
         indent: {
             adjustMultilineComment: true,

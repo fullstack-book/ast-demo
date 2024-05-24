@@ -1,129 +1,107 @@
 /**
- * 相同作用域的变量替换
-    例子：
-    function tt() {
-        const a = 2;
-        function d(x, y) {
-            return c(x, y + a);
-        }
-        const k = d(1, 2); 
-        const j = d(a, 5);
-
-        const kk = k + j;
-        return kk;
-    }
-
-    转化后：
-    function tt() {
-        const a = 2;
-        function d(x, y) {
-            return c(x, y + a); // 外部变量不能替换，如有需要，手动替换
-        }
-        const k = d(1, 2);
-        const j = d(2, 5); // 这里替换了
-        const kk = k + j;
-        return kk;
-    }
+ * 函数变量替换
  */
 
-// 引入@babel/types模块，它提供了构建、遍历和管理AST节点的能力
 const types = require("@babel/types");
 
-// 定义一个traverse_refactored对象，它包含FunctionDeclaration方法，用于处理遍历到的功能声明节点
+// traverse_refactored 对象包含了遍历过程中需要应用的方法
 const traverse_refactored = {
+    // 对于函数声明节点的处理
     FunctionDeclaration(path) {
-        // 对遍历到的函数声明节点应用replaceVariable函数
+        replaceVariable(path);
+    },
+    // 对于函数表达式节点的处理，包括箭头函数和普通函数
+    FunctionExpression(path) {
+        replaceVariable(path);
+    },
+    // 对于箭头函数表达式节点的处理
+    ArrowFunctionExpression(path) {
         replaceVariable(path);
     }
 };
 
-// replaceVariable函数用于替换函数声明中的变量
+// replaceVariable 函数用于替换一个函数作用域内部的变量
 function replaceVariable(path) {
-    // 检查函数声明节点是否有名称（避免匿名函数的情况）
-    if (path.node.id && path.node.id.name) {
-        // 创建一个Set用来存储函数参数名字
-        let functionParameters = new Set();
-        // 创建一个Map用来存储局部变量名和它们的初始化值
-        let localVars = new Map();
+    // 存储函数参数名字以避免对它们进行替换
+    let functionParameters = new Set();
+    // 存储局部变量的名称及其初始化值
+    let localVars = new Map();
 
-        // 遍历函数的参数并将它们的名字添加到functionParameters中
-        path.node.params.forEach((param) => {
-            functionParameters.add(param.name);
-        });
+    // 将所有函数参数的名称添加到 functionParameters 集合中
+    path.node.params.forEach((param) => {
+        functionParameters.add(param.name);
+    });
 
-        // 再次遍历AST，寻找变量声明
-        path.traverse({
-            VariableDeclarator(innerPath) {
-                if ((types.isNumericLiteral(innerPath.node.init) || types.isStringLiteral(innerPath.node.init)) && innerPath.node.id.name) {
-                    if(innerPath.scope.block === path.scope.block){
-                        localVars.set(innerPath.node.id.name, innerPath.node.init.value);
-                    }
+    // 通过traverse方法在函数内部继续遍历节点
+    path.traverse({
+        // 针对变量声明节点的处理
+        VariableDeclarator(innerPath) {
+            // 如果变量是通过数字或字符串字面量进行初始化的
+            if ((types.isNumericLiteral(innerPath.node.init) || types.isStringLiteral(innerPath.node.init)) && innerPath.node.id.name) {
+                // 确保这个变量声明发生在当前函数作用域内
+                if (innerPath.scope.block === path.scope.block) {
+                    // 将变量及其值存储至localVars映射中
+                    localVars.set(innerPath.node.id.name, innerPath.node.init.value);
                 }
-            },
-            UnaryExpression(path) {
-                if (types.isIdentifier(path.node.argument) && localVars.has(path.node.argument.name)) {
-                    const variableValue = localVars.get(path.node.argument.name);
-                    if (typeof variableValue === 'number' || typeof variableValue === 'boolean') {
-                        let newValue;
-                        switch (path.node.operator) {
-                            case '-':
-                                newValue = -variableValue;
-                                break;
-                            case '+':
-                                newValue = +variableValue; // 对数值应用一元加操作，通常用于类型转换
-                                break;
-                            case '!':
-                                newValue = !variableValue; // 逻辑非操作
-                                break;
-                            case '~':
-                                newValue = ~variableValue; // 按位非操作
-                                break;
-                            case 'typeof':
-                                // typeof 操作的特殊处理，因为它的操作数可能是任何类型
-                                newValue = typeof variableValue; // 直接返回操作数的类型
-                                break;
-                            default:
-                                return; // 如果是未处理的操作符，什么也不做
-                        }
-
-                        // 创建一个新的字面量节点来替换一元表达式
-                        // 注意：typeof 操作符返回的是字符串，因此需要特殊处理
-                        const newNode = path.node.operator === 'typeof' ?
-                            types.stringLiteral(newValue) :
-                            (typeof newValue === 'number' ? types.numericLiteral(newValue) :
-                                typeof newValue === 'boolean' ? types.booleanLiteral(newValue) :
-                                    null);
-
-                                // 也可以使用types.valueToNode(值)来创建字面量节点
-                        if (newNode) {
-                            path.replaceWith(newNode);
-                        }
+            }
+        },
+        // 针对一元表达式节点的处理
+        UnaryExpression(innerPath) {
+            // 如果一元表达式的操作数是一个标识符并且在局部变量映射中可以找到
+            if (types.isIdentifier(innerPath.node.argument) && localVars.has(innerPath.node.argument.name)) {
+                const variableValue = localVars.get(innerPath.node.argument.name);
+                // 只有当操作数是数字或布尔值时，一元操作才有意义
+                if (typeof variableValue === 'number' || typeof variableValue === 'boolean') {
+                    let newValue;
+                    // 根据一元操作符的类型计算新值
+                    switch (innerPath.node.operator) {
+                        case '-':
+                            newValue = -variableValue;
+                            break;
+                        case '+':
+                            newValue = +variableValue;
+                            break;
+                        case '!':
+                            newValue = !variableValue;
+                            break;
+                        case '~':
+                            newValue = ~variableValue;
+                            break;
+                        case 'typeof':
+                            newValue = typeof variableValue;
+                            break;
+                        default:
+                            // 如果不是上述操作符之一，则不进行处理
+                            return;
+                    }
+                    // 创建新的字面量节点
+                    const newNode = types.valueToNode(newValue);
+                    if (newNode) {
+                        // 使用新节点替换原始的一元表达式节点
+                        innerPath.replaceWith(newNode);
                     }
                 }
             }
-        });
-        // 再次遍历AST，这次寻找调用表达式
-        path.traverse({
-            CallExpression(innerPath) {
-                // 遍历调用表达式的参数
-                // if (innerPath.scope.block === path.scope.block) {
-                    innerPath.node.arguments.forEach((arg, index) => {
-                        // 如果参数是一个标识符，并且存在于localVars中但不在functionParameters中
-                        if (types.isIdentifier(arg) && !functionParameters.has(arg.name) && localVars.has(arg.name) ) {
-                            // 从localVars获取该变量的值
-                            const value = localVars.get(arg.name);
-                            // 根据值的类型创建一个新的字面量节点
-                            const newNode = typeof value === 'number' ? types.numericLiteral(value) : types.stringLiteral(value);
-                            // 将参数替换为新创建的字面量节点
-                            innerPath.node.arguments[index] = newNode;
-                        }
-                    });
-                // }
-                
-            }
-        });
-    }
+        },
+        // 处理函数调用表达式节点
+        CallExpression(innerPath) {
+            innerPath.node.arguments.forEach((arg, index) => {
+                // 如果参数是一个标识符
+                if (types.isIdentifier(arg)) {
+                    const binding = innerPath.scope.getBinding(arg.name);
+                    // 确保只替换当前作用域的局部变量，并且不是函数参数
+                    if (binding && binding.scope.block === path.scope.block &&
+                        !functionParameters.has(arg.name) && localVars.has(arg.name)) {
+                        const value = localVars.get(arg.name);
+                        // 创建对应类型的字面量节点来替换参数
+                        const newNode = types.valueToNode(value);
+                        innerPath.node.arguments[index] = newNode;
+                    }
+                }
+            });
+        }
+    });
 }
 
-// 导出修改后的traverse_refactored对象，使它可以在其他模块中被引用
+// 将处理函数 export 出去，这样其他模块可以引用
 exports.fix = traverse_refactored;

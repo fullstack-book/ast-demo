@@ -17,7 +17,7 @@ const CleanUnreferVarsFunsFix = require('../../common/CleanUnreferVarsFunsFix')
 function fix(source_code) {
     let ast = parser.parse(source_code)
     // 格式修复
-    // traverse(ast, IfWithExpressFix.fix)
+    traverse(ast, IfWithExpressFix.fix)
     // traverse(ast, ForWithExpressFix.fix)
     // traverse(ast, ReturnSequenceExpressionFix.fix)
 
@@ -27,13 +27,13 @@ function fix(source_code) {
 
     // traverse(ast, AssignmentWithConditionalFix.fix)
 
-    traverse(ast, LogicalExpressionFix.fix)
+    // traverse(ast, LogicalExpressionFix.fix)
     // traverse(ast, CleanIfEmptyBlockIfFix.fix)
-    traverse(ast, ReplaceFunctionVariable.fix)
+    // traverse(ast, ReplaceFunctionVariable.fix)
 
     // Test.deal(ast)
     
-    traverse(ast, CleanUnreferVarsFunsFix.fix)
+    // traverse(ast, CleanUnreferVarsFunsFix.fix)
     const opts = {
         indent: {
             adjustMultilineComment: true,

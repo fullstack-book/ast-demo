@@ -2,10 +2,12 @@
 const fs = require("fs");
 const iconv = require('iconv-lite');
 
-const common_fix = require("./demos/demo1/demo1_fix");
+const demoPath = "demo2"
 
-const source_path = "./demos/demo1/source.js";
-const output_path = "./demos/demo1/output.js";
+const common_fix = require(`./demos/${demoPath}/demo_fix`);
+const source_path = `./demos/${demoPath}/source.js`;
+const output_path = `./demos/${demoPath}/output.js`;
+
 const content = fs.readFileSync(source_path, { encoding: "binary" });
 const buf = new Buffer.from(content, "binary");
 const source_code = iconv.decode(buf, "utf-8");

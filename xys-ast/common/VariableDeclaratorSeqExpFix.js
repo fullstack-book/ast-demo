@@ -30,8 +30,13 @@ const traverse_ConditionalVariableDeclarator = {
 
 // 处理变量声明的函数
 function fixVariableDeclaration(path) {
+  let { parentPath, node } = path;
+  if (parentPath.isFor()) {
+    return;
+  }
+
   // 获取变量声明的类型（var, let, const）和声明列表
-  const { declarations, kind } = path.node;
+  const { declarations, kind } = node;
 
   // 如果声明列表中的元素少于2，则无需处理，直接返回
   if (declarations.length < 2) return;
